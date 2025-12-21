@@ -1,0 +1,667 @@
+/* ============================
+   RESET & BASE STYLES
+   ============================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body { 
+    background: #0d1117; 
+    color: #c9d1d9; 
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+    overflow-x: hidden;
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+/* ============================
+   TYPOGRAPHY
+   ============================ */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+/* ============================
+   FORM ELEMENTS
+   ============================ */
+input, textarea, select { 
+    background: #161b22 !important; 
+    border: 1px solid #30363d !important; 
+    color: white !important; 
+    border-radius: 12px;
+    padding: 12px 16px;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    outline: none;
+    width: 100%;
+}
+
+input:focus, textarea:focus, select:focus {
+    border-color: #58a6ff !important;
+    box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.1);
+    transform: translateY(-1px);
+}
+
+input::placeholder, textarea::placeholder {
+    color: #8b949e;
+}
+
+/* ============================
+   BUTTONS & INTERACTIVE
+   ============================ */
+.btn-active {
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.btn-active:active { 
+    transform: scale(0.96); 
+}
+
+.btn-active:hover:not(:disabled) {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+.btn-active:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ============================
+   LAYOUT & CONTAINERS
+   ============================ */
+.stat-card { 
+    background: linear-gradient(145deg, #1c2128, #161b22);
+    border: 1px solid #30363d;
+    border-radius: 20px;
+    padding: 24px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.stat-card:hover {
+    border-color: #58a6ff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* ============================
+   NAVIGATION
+   ============================ */
+.nav-active { 
+    color: #238636 !important; 
+    background-color: rgba(35, 134, 54, 0.1) !important;
+    border-color: #238636 !important;
+}
+
+.nav-active i { 
+    color: #238636 !important; 
+}
+
+/* Top Navigation */
+header {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    background: rgba(13, 17, 23, 0.95);
+    border-bottom: 1px solid #30363d;
+}
+
+/* Avatar hover effect */
+header img:hover {
+    box-shadow: 0 0 20px rgba(88, 166, 255, 0.4);
+    transform: scale(1.05);
+}
+
+/* Hamburger animation */
+#menu-toggle:checked + label span:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+    background-color: #58a6ff;
+}
+
+#menu-toggle:checked + label span:nth-child(2) {
+    opacity: 0;
+    transform: scale(0);
+}
+
+#menu-toggle:checked + label span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+    background-color: #58a6ff;
+}
+
+/* Dropdown menu */
+.dropdown-menu {
+    animation: slideDown 0.2s ease-out;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    border: 1px solid #30363d;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Dropdown links */
+.dropdown-menu a {
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+}
+
+.dropdown-menu a:hover {
+    background: rgba(48, 54, 61, 0.3);
+    border-left-color: #58a6ff;
+    padding-left: 20px !important;
+}
+
+/* ============================
+   TIMER & QUIZ COMPONENTS
+   ============================ */
+#timerBar { 
+    transition: width 1s linear; 
+    box-shadow: 0 0 10px #58a6ff;
+    border-radius: 2px;
+}
+
+#timerText {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+/* ============================
+   TOGGLE SWITCH
+   ============================ */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 52px;
+    height: 26px;
+}
+
+.switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #30363d;
+    transition: .4s;
+    border-radius: 34px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 3px;
+    background: linear-gradient(145deg, #ffffff, #e6e6e6);
+    transition: .4s;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+input:checked + .slider {
+    background: linear-gradient(145deg, #238636, #1e7c30);
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+    background: white;
+}
+
+.slider:hover:before {
+    transform: scale(1.1);
+}
+
+.switch-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(22, 27, 34, 0.5);
+    padding: 16px 20px;
+    border-radius: 16px;
+    border: 1px solid #30363d;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+}
+
+.switch-container:hover {
+    border-color: #58a6ff;
+    background: rgba(22, 27, 34, 0.7);
+}
+
+.switch-label {
+    font-size: 14px;
+    font-weight: 700;
+    color: #c9d1d9;
+    letter-spacing: 0.5px;
+}
+
+.switch-text {
+    font-size: 12px;
+    color: #8b949e;
+    margin-top: 4px;
+    line-height: 1.4;
+}
+
+/* ============================
+   QUESTION CARDS
+   ============================ */
+.question-card {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 24px;
+    padding: 32px;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.question-card:hover {
+    border-color: #58a6ff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* Answer options */
+.answer-option {
+    background: rgba(22, 27, 34, 0.5);
+    border: 2px solid #30363d;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 12px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.answer-option:hover {
+    border-color: #58a6ff;
+    background: rgba(88, 166, 255, 0.05);
+    transform: translateX(5px);
+}
+
+.answer-option.selected {
+    border-color: #58a6ff;
+    background: rgba(88, 166, 255, 0.1);
+    box-shadow: 0 4px 15px rgba(88, 166, 255, 0.2);
+}
+
+.answer-option.correct {
+    border-color: #238636;
+    background: rgba(35, 134, 54, 0.1);
+}
+
+.answer-option.incorrect {
+    border-color: #da3633;
+    background: rgba(218, 54, 51, 0.1);
+}
+
+/* ============================
+   TOAST NOTIFICATION
+   ============================ */
+#toast {
+    animation: slideIn 0.3s ease, fadeOut 0.3s ease 1.7s forwards;
+    box-shadow: 0 10px 30px rgba(88, 166, 255, 0.3);
+    border: 1px solid rgba(88, 166, 255, 0.3);
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translate(-50%, -20px);
+        opacity: 0;
+    }
+    to {
+        transform: translate(-50%, 0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        transform: translate(-50%, -20px);
+    }
+}
+
+/* ============================
+   CUSTOM SCROLLBAR
+   ============================ */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #161b22;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #30363d;
+    border-radius: 5px;
+    border: 2px solid #161b22;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #58a6ff;
+}
+
+/* ============================
+   UTILITY CLASSES
+   ============================ */
+.glow {
+    box-shadow: 0 0 20px currentColor;
+}
+
+.glow-accent {
+    box-shadow: 0 0 20px rgba(88, 166, 255, 0.5);
+}
+
+.glow-success {
+    box-shadow: 0 0 20px rgba(35, 134, 54, 0.5);
+}
+
+.glow-error {
+    box-shadow: 0 0 20px rgba(218, 54, 51, 0.5);
+}
+
+/* Loading animation */
+.loading-dots {
+    display: inline-block;
+}
+
+.loading-dots:after {
+    content: ' .';
+    animation: dots 1.5s steps(5, end) infinite;
+}
+
+@keyframes dots {
+    0%, 20% { content: ' .'; }
+    40% { content: ' ..'; }
+    60% { content: ' ...'; }
+    80%, 100% { content: ' .'; }
+}
+
+/* ============================
+   RESPONSIVE ADJUSTMENTS
+   ============================ */
+@media (max-width: 768px) {
+    .stat-card {
+        padding: 16px;
+    }
+    
+    .question-card {
+        padding: 20px;
+        border-radius: 20px;
+    }
+    
+    .switch-container {
+        padding: 12px 16px;
+    }
+    
+    input, textarea, select {
+        padding: 10px 14px;
+        font-size: 13px;
+    }
+}
+
+/* Print styles */
+@media print {
+    .no-print {
+        display: none !important;
+    }
+    
+    body {
+        background: white;
+        color: black;
+    }
+    
+    .question-card {
+        break-inside: avoid;
+        border: 1px solid #ddd;
+        box-shadow: none;
+    }
+}
+
+/* ============================
+   DARK MODE ENHANCEMENTS
+   ============================ */
+.dark .text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.dark .backdrop-blur {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+/* Gradient backgrounds */
+.gradient-bg {
+    background: linear-gradient(135deg, #0d1117 0%, #161b22 50%, #1c2128 100%);
+}
+
+.gradient-accent {
+    background: linear-gradient(135deg, #58a6ff 0%, #1f6feb 100%);
+}
+
+.gradient-success {
+    background: linear-gradient(135deg, #238636 0%, #196c2e 100%);
+}
+
+/* ============================
+   ACCESSIBILITY
+   ============================ */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Focus styles for keyboard navigation */
+:focus-visible {
+    outline: 2px solid #58a6ff;
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* ============================
+   ANIMATIONS
+   ============================ */
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.bounce {
+    animation: bounce 1s infinite;
+}
+
+/* Fade in animation for content */
+.fade-in {
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Shine effect for premium elements */
+.shine {
+    position: relative;
+    overflow: hidden;
+}
+
+.shine::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        to right,
+        transparent 0%,
+        rgba(255, 255, 255, 0.1) 50%,
+        transparent 100%
+    );
+    transform: rotate(30deg);
+    animation: shine 3s infinite;
+}
+
+@keyframes shine {
+    0% { transform: translateX(-100%) rotate(30deg); }
+    100% { transform: translateX(100%) rotate(30deg); }
+}
+
+/* ============================
+   ICON STYLES
+   ============================ */
+.icon-3d {
+    text-shadow: 
+        1px 1px 0 rgba(0, 0, 0, 0.2),
+        2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.icon-glow {
+    filter: drop-shadow(0 0 8px currentColor);
+}
+
+/* ============================
+   BORDER RADIUS SCALE
+   ============================ */
+.rounded-sm { border-radius: 8px; }
+.rounded-md { border-radius: 12px; }
+.rounded-lg { border-radius: 16px; }
+.rounded-xl { border-radius: 20px; }
+.rounded-2xl { border-radius: 24px; }
+.rounded-3xl { border-radius: 32px; }
+.rounded-full { border-radius: 9999px; }
+
+/* ============================
+   TRANSITIONS
+   ============================ */
+.transition-fast { transition: all 0.15s ease; }
+.transition-medium { transition: all 0.3s ease; }
+.transition-slow { transition: all 0.5s ease; }
+
+/* ============================
+   SHADOWS
+   ============================ */
+.shadow-soft { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); }
+.shadow-medium { box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2); }
+.shadow-hard { box-shadow: 0 12px 36px rgba(0, 0, 0, 0.3); }
+.shadow-inner { box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1); }
+
+/* ============================
+   Z-INDEX SCALE
+   ============================ */
+.z-0 { z-index: 0; }
+.z-10 { z-index: 10; }
+.z-20 { z-index: 20; }
+.z-30 { z-index: 30; }
+.z-40 { z-index: 40; }
+.z-50 { z-index: 50; }
+.z-auto { z-index: auto; }
+
+/* ============================
+   OPACITY
+   ============================ */
+.opacity-0 { opacity: 0; }
+.opacity-25 { opacity: 0.25; }
+.opacity-50 { opacity: 0.5; }
+.opacity-75 { opacity: 0.75; }
+.opacity-100 { opacity: 1; }
+
+/* ============================
+   BLUR
+   ============================ */
+.blur-sm { filter: blur(4px); }
+.blur-md { filter: blur(8px); }
+.blur-lg { filter: blur(12px); }
+.blur-xl { filter: blur(16px); }
+
+/* ============================
+   BACKDROP BLUR
+   ============================ */
+.backdrop-blur-sm { backdrop-filter: blur(4px); }
+.backdrop-blur-md { backdrop-filter: blur(8px); }
+.backdrop-blur-lg { backdrop-filter: blur(12px); }
+.backdrop-blur-xl { backdrop-filter: blur(16px); }
+
+/* ============================
+   SPECIAL EFFECTS
+   ============================ */
+.glass-effect {
+    background: rgba(22, 27, 34, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.neon-border {
+    border: 2px solid transparent;
+    background: linear-gradient(#161b22, #161b22) padding-box,
+                linear-gradient(45deg, #58a6ff, #238636) border-box;
+}
+
+.gradient-text {
+    background: linear-gradient(45deg, #58a6ff, #238636);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
