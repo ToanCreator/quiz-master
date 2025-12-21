@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Master information</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: { 
+                extend: { 
+                    colors: { 
+                        dark: '#0d1117', 
+                        card: '#161b22', 
+                        border: '#30363d', 
+                        accent: '#58a6ff', 
+                        success: '#238636', 
+                        warning: '#d29922',
+                        error: '#da3633',
+                        purple: '#8957e5'
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                        'pulse-slow': 'pulse 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                } 
+            }
+        }
+    </script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background: #0d1117;
+            color: #c9d1d9;
+            scroll-behavior: smooth;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #161b22;
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #30363d;
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #58a6ff;
+        }
+        
+        /* Glass Effect */
+        .glass-effect {
+            background: rgba(22, 27, 34, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Gradient Text */
+        .gradient-text {
+            background: linear-gradient(45deg, #58a6ff, #8957e5, #238636);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            background-size: 200% 200%;
+            animation: gradient 5s ease infinite;
+        }
+        
+        @keyframes gradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        /* Section Spacing */
+        section {
+            scroll-margin-top: 100px;
+        }
+        
+        /* Timeline */
+        .timeline-item {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #58a6ff;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 20px;
+            width: 2px;
+            height: calc(100% + 10px);
+            background: #30363d;
+        }
+        
+        .timeline-item:last-child::after {
+            display: none;
+        }
+        
+        /* Card Hover Effect */
+        .hover-card {
+            transition: all 0.3s ease;
+            border: 1px solid #30363d;
+        }
+        
+        .hover-card:hover {
+            transform: translateY(-5px);
+            border-color: #58a6ff;
+            box-shadow: 0 10px 30px rgba(88, 166, 255, 0.1);
+        }
+        
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: #58a6ff;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .back-to-top.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Badge */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .badge-primary {
+            background: rgba(88, 166, 255, 0.2);
+            color: #58a6ff;
+            border: 1px solid rgba(88, 166, 255, 0.3);
+        }
+        
+        .badge-success {
+            background: rgba(35, 134, 54, 0.2);
+            color: #238636;
+            border: 1px solid rgba(35, 134, 54, 0.3);
+        }
+        
+        .badge-warning {
+            background: rgba(210, 153, 34, 0.2);
+            color: #d29922;
+            border: 1px solid rgba(210, 153, 34, 0.3);
+        }
+        
+        /* Feature Card */
+        .feature-card {
+            background: linear-gradient(145deg, #1c2128, #161b22);
+            border: 1px solid #30363d;
+            border-radius: 16px;
+            padding: 24px;
+            height: 100%;
+            transition: all 0.3s ease;
+        }
+        
+        /* Table of Contents */
+        .toc-item {
+            padding: 10px 15px;
+            border-left: 3px solid transparent;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        
+        .toc-item:hover {
+            border-left-color: #58a6ff;
+            background: rgba(88, 166, 255, 0.1);
+        }
+        
+        .toc-item.active {
+            border-left-color: #58a6ff;
+            background: rgba(88, 166, 255, 0.1);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Back to Top Button -->
+    <div class="back-to-top" onclick="scrollToTop()">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 glass-effect border-b border-border">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-accent to-purple flex items-center justify-center">
+                        <i class="fas fa-info-circle text-white"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold text-white">QUIZ MASTER</h1>
+                        <p class="text-xs text-gray-400">Thông tin & Điều khoản</p>
+                    </div>
+                </div>
+                
+                <!-- Navigation Links -->
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="#about" class="text-gray-400 hover:text-white transition">Giới thiệu</a>
+                    <a href="#features" class="text-gray-400 hover:text-white transition">Tính năng</a>
+                    <a href="#terms" class="text-gray-400 hover:text-white transition">Điều khoản</a>
+                    <a href="#privacy" class="text-gray-400 hover:text-white transition">Bảo mật</a>
+                    <a href="#contact" class="text-gray-400 hover:text-white transition">Liên hệ</a>
+                    <a href="../index.html" class="bg-accent text-white px-4 py-2 rounded-lg font-bold hover:bg-accent/90 transition">
+                        <i class="fas fa-home mr-2"></i>Về trang chính
+                    </a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden text-gray-400 hover:text-white" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="hidden md:hidden mt-4 space-y-3">
+                <a href="#about" class="block py-2 text-gray-400 hover:text-white" onclick="toggleMobileMenu()">Giới thiệu</a>
+                <a href="#features" class="block py-2 text-gray-400 hover:text-white" onclick="toggleMobileMenu()">Tính năng</a>
+                <a href="#terms" class="block py-2 text-gray-400 hover:text-white" onclick="toggleMobileMenu()">Điều khoản</a>
+                <a href="#privacy" class="block py-2 text-gray-400 hover:text-white" onclick="toggleMobileMenu()">Bảo mật</a>
+                <a href="#contact" class="block py-2 text-gray-400 hover:text-white" onclick="toggleMobileMenu()">Liên hệ</a>
+                <a href="../index.html" class="block bg-accent text-white py-2 px-4 rounded-lg font-bold text-center">
+                    <i class="fas fa-home mr-2"></i>Về trang chính
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="py-20">
+        <div class="container mx-auto px-4 text-center">
+            <div class="max-w-4xl mx-auto">
+                <span class="badge badge-primary mb-6 animate-pulse">
+                    <i class="fas fa-star mr-2"></i>Chính thức ra mắt
+                </span>
+                
+                <h1 class="text-5xl md:text-6xl font-black mb-6 gradient-text">
+                    Thông Tin
+                    <span class="block text-white mt-2">Quiz Master</span>
+                </h1>
+                
+                <p class="text-xl text-gray-400 mb-10">
+                    Nền tảng chuyển đổi bài tập sang PDF chuyên nghiệp, 
+                    mang đến trải nghiệm học tập tốt nhất cho giáo viên và học sinh Việt Nam.
+                </p>
+                
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="#about" class="bg-accent text-white font-bold py-3 px-8 rounded-xl hover:bg-accent/90 transition flex items-center gap-2">
+                        <i class="fas fa-user"></i>Về Tác Giả
+                    </a>
+                    <a href="#terms" class="bg-card border border-border text-white font-bold py-3 px-8 rounded-xl hover:bg-border transition flex items-center gap-2">
+                        <i class="fas fa-file-contract"></i>Điều Khoản
+                    </a>
+                    <a href="#contact" class="bg-purple text-white font-bold py-3 px-8 rounded-xl hover:bg-purple/90 transition flex items-center gap-2">
+                        <i class="fas fa-envelope"></i>Liên Hệ
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Table of Contents -->
+    <section class="py-10">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto glass-effect rounded-2xl p-6">
+                <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+                    <i class="fas fa-list text-accent"></i>
+                    Mục Lục
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="toc-item active" onclick="scrollToSection('about')">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-lg bg-accent/20 flex items-center justify-center">
+                                <i class="fas fa-user text-accent"></i>
+                            </div>
+                            <span>Giới thiệu Tác giả</span>
+                        </div>
+                    </div>
+                    
+                    <div class="toc-item" onclick="scrollToSection('mission')">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-lg bg-success/20 flex items-center justify-center">
+                                <i class="fas fa-bullseye text-success"></i>
+                            </div>
+                            <span>Sứ mệnh & Tầm nhìn</span>
+                        </div>
+                    </div>
+                    
+                    <div class="toc-item" onclick="scrollToSection('features')">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-lg bg-purple/20 flex items-center justify-center">
+                                <i class="fas fa-star text-purple"></i>
+                            </div>
+                            <span>Tính năng nổi bật</span>
+                        </div>
+                    </div>
+                    
+                    <div class="toc-item" onclick="scrollToSection('terms')">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-lg bg-warning/20 flex items-center justify-center">
+                                <i class="fas fa-file-contract text-warning"></i>
+                            </div>
+                            <span>Điều khoản sử dụng</span>
+                        </div>
+                    </div>
+                    
+                    <div class="toc-item" onclick="scrollToSection('privacy')">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-lg bg-accent/20 flex items-center justify-center">
+                                <i class="fas fa-shield-alt text-accent"></i>
+                            </div>
+                            <span>Chính sách bảo mật</span>
+                        </div>
+                    </div>
+                    
+                    <div class="toc-item" onclick="scrollToSection('contact')">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-lg bg-success/20 flex items-center justify-center">
+                                <i class="fas fa-envelope text-success"></i>
+                            </div>
+                            <span>Thông tin liên hệ</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Author Section -->
+    <section id="about" class="py-20">
+        <div class="container mx-auto px-4">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold text-white mb-4">
+                        <i class="fas fa-user-tie text-accent mr-3"></i>
+                        Về Tác Giả
+                    </h2>
+                    <p class="text-xl text-gray-400">Người sáng tạo ra Quiz Master</p>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Author Profile -->
+                    <div class="lg:col-span-1">
+                        <div class="feature-card hover-card" data-aos="fade-right">
+                            <div class="text-center">
+                                <div class="w-40 h-40 rounded-full mx-auto mb-6 bg-gradient-to-br from-accent to-purple p-1">
+                                    <div class="w-full h-full rounded-full bg-dark flex items-center justify-center">
+                                        <i class="fas fa-user-astronaut text-5xl text-white"></i>
+                                    </div>
+                                </div>
+                                
+                                <h3 class="text-2xl font-bold text-white mb-2">Toàn Creator</h3>
+                                <p class="text-gray-400 mb-4">Nhà phát triển & Youtuber</p>
+                                
+                                <div class="flex justify-center gap-3 mb-6">
+                                    <span class="badge badge-primary">Software Engineer</span>
+                                    <span class="badge badge-success">IT Master</span>
+                                    <span class="badge badge-warning">Content Creator</span>
+                                </div>
+                                
+                                <p class="text-gray-300 mb-6">
+                                    Với niềm đam mê công nghệ và sáng tạo, tôi tạo ra Quiz Master 
+                                    để giúp đỡ cộng đồng giáo viên và học sinh Việt Nam.
+                                </p>
+                                
+                                <div class="flex justify-center gap-4">
+                                    <a href="https://github.com/toancreator" class="text-gray-400 hover:text-white">
+                                        <i class="fab fa-github text-2xl"></i>
+                                    </a>
+                                    <a href="mailto:toancreator.contact@gmail.com" class="text-gray-400 hover:text-white">
+                                        <i class="fas fa-envelope text-2xl"></i>
+                                    </a>
+                                    <a href="#" class="text-gray-400 hover:text-white">
+                                        <i class="fab fa-facebook text-2xl"></i>
+                                    </a>
+                                    <a href="#" class="text-gray-400 hover:text-white">
+                                        <i class="fab fa-youtube text-2xl"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Experience & Skills -->
+                    <div class="lg:col-span-2">
+                        <div class="feature-card hover-card h-full" data-aos="fade-left">
+                            <h3 class="text-2xl font-bold text-white mb-8 flex items-center gap-3">
+                                <i class="fas fa-briefcase text-accent"></i>
+                                Kinh nghiệm & Kỹ năng
+                            </h3>
+                            
+                            <!-- Timeline -->
+                            <div class="space-y-8">
+                                <div class="timeline-item">
+                                    <h4 class="text-xl font-bold text-white mb-2">Phát triển Web & Ứng dụng</h4>
+                                    <p class="text-gray-400 mb-3">
+                                        Chuyên phát triển các ứng dụng điện thoại, web với 
+                                        công nghệ hiện đại: HTML, CSS, C++, C#, JavaScript, React, Node.js, Socket.io, Machine Learning,...
+                                    </p>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="px-3 py-1 bg-accent/20 text-accent rounded-full text-sm">JavaScript</span>
+                                        <span class="px-3 py-1 bg-success/20 text-success rounded-full text-sm">C++</span>
+                                        <span class="px-3 py-1 bg-purple/20 text-purple rounded-full text-sm">Node.js</span>
+                                        <span class="px-3 py-1 bg-warning/20 text-warning rounded-full text-sm">Machine Learning</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="timeline-item">
+                                    <h4 class="text-xl font-bold text-white mb-2">Giáo dục & Đào tạo</h4>
+                                    <p class="text-gray-400 mb-3">
+                                        Kinh nghiệm 5 năm phát triển phần mềm, tài liệu học tập 
+                                        cho học sinh, sinh viên. Tạo ra nhiều công cụ hỗ trợ giảng dạy.
+                                    </p>
+                                </div>
+                                
+                                <div class="timeline-item">
+                                    <h4 class="text-xl font-bold text-white mb-2">Sáng tạo Nội dung</h4>
+                                    <p class="text-gray-400 mb-3">
+                                        Xây dựng cộng đồng học tập trực tuyến với hàng nghìn thành viên. 
+                                        Chia sẻ kiến thức về lập trình và công nghệ giáo dục.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission & Vision -->
+    <section id="mission" class="py-20 bg-card/50">
+        <div class="container mx-auto px-4">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold text-white mb-4">
+                        <i class="fas fa-bullseye text-success mr-3"></i>
+                        Sứ Mệnh & Tầm Nhìn
+                    </h2>
+                    <p class="text-xl text-gray-400">Những giá trị mà Quiz Master hướng đến</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="feature-card hover-card" data-aos="fade-up">
+                        <div class="w-16 h-16 rounded-xl bg-success/20 flex items-center justify-center mb-6">
+                            <i class="fas fa-heart text-success text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-4">Sứ Mệnh</h3>
+                        <p class="text-gray-400">
+                            Cung cấp công cụ chuyển đổi bài tập sang PDF miễn phí, chất lượng cao 
+                            cho cộng đồng giáo viên và học sinh Việt Nam. Giúp tiết kiệm thời gian, 
+                            nâng cao hiệu quả học tập và giảng dạy.
+                        </p>
+                    </div>
+                    
+                    <div class="feature-card hover-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="w-16 h-16 rounded-xl bg-purple/20 flex items-center justify-center mb-6">
+                            <i class="fas fa-eye text-purple text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-4">Tầm Nhìn</h3>
+                        <p class="text-gray-400">
+                            Trở thành nền tảng hàng đầu tại Việt Nam trong việc hỗ trợ chuyển đổi 
+                            và quản lý tài liệu học tập. Phát triển thành hệ sinh thái công cụ 
+                            giáo dục toàn diện, phục vụ hàng triệu người dùng.
+                        </p>
+                    </div>
+                    
+                    <div class="feature-card hover-card" data-aos="fade-up" data-aos-delay="400">
+                        <div class="w-16 h-16 rounded-xl bg-accent/20 flex items-center justify-center mb-6">
+                            <i class="fas fa-handshake text-accent text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-4">Giá Trị Cốt Lõi</h3>
+                        <ul class="space-y-3 text-gray-400">
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-check text-success mt-1"></i>
+                                <span>Miễn phí cho giáo viên và học sinh</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-check text-success mt-1"></i>
+                                <span>Chất lượng PDF chuyên nghiệp, font tiếng Việt chuẩn</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-check text-success mt-1"></i>
+                                <span>Bảo mật tuyệt đối dữ liệu người dùng</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-check text-success mt-1"></i>
+                                <span>Liên tục cập nhật và cải tiến</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card hover-card" data-aos="fade-up" data-aos-delay="600">
+                        <div class="w-16 h-16 rounded-xl bg-warning/20 flex items-center justify-center mb-6">
+                            <i class="fas fa-users text-warning text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-4">Đối Tượng Phục Vụ</h3>
+                        <ul class="space-y-3 text-gray-400">
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-chalkboard-teacher text-accent mt-1"></i>
+                                <span><strong>Giáo viên:</strong> Tạo bài tập, đề kiểm tra</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-user-graduate text-success mt-1"></i>
+                                <span><strong>Học sinh, sinh viên:</strong> Ôn tập, tổng hợp kiến thức</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-school text-purple mt-1"></i>
+                                <span><strong>Trường học:</strong> Quản lý tài liệu giảng dạy</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <i class="fas fa-book text-warning mt-1"></i>
+                                <span><strong>Trung tâm giáo dục:</strong> Biên soạn giáo trình</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features" class="py-20">
+        <div class="container mx-auto px-4">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold text-white mb-4">
+                        <i class="fas fa-star text-purple mr-3"></i>
+                        Tính Năng Nổi Bật
+                    </h2>
+                    <p class="text-xl text-gray-400">Những điểm đặc biệt của Quiz Master</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Feature 1 -->
+                    <div class="feature-card hover-card" data-aos="fade-up">
+                        <div class="w-14 h-14 rounded-xl bg-accent/20 flex items-center justify-center mb-6">
+                            <i class="fas fa-file-pdf text-accent text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-4">PDF Chất Lượng Cao</h3>
+                        <p class="text-gray-400">
+                            Tạo PDF với font tiếng Việt chuẩn, layout chuyên nghiệp, 
+                            hỗ trợ đầy đủ ký tự Unicode, không lỗi font.
+                        </p>
+                    </div>
+                    
+                    <!-- Feature 2 -->
+                    <div class="feature-card hover-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="w-14 h-14 rounded-xl bg-success/20 flex items-center justify-center mb-6">
+                            <i class="fas fa-bolt text-success text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-4">Xử Lý Thông Minh</h3>
+                        <p class="text-gray-400">
+                            Tự động nhận diện và fix lỗi encoding, hỗ trợ nhiều định dạng 
+                            câu hỏi: trắc nghiệm, tự luận, đúng/sai.
+                        </p>
+                    </div>
+                    
+                    <!-- Feature 3 -->
+                    <div class="feature-card hover-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="w-14 h-14 rounded-xl bg-purple/20 flex items-center justify-center mb-6">
+                            <i class="fas fa-shield-alt text-purple text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-4">Bảo Mật Tuyệt Đối</h3>
+                        <p class="text-gray-400">
+                            Dữ liệu được xử lý cục bộ trên trình duyệt, không lưu trữ 
+                            trên server, đảm bảo an toàn thông tin.
+                        </p>
+                    </div>
+                    
+                    <!-- Feature 4 -->
+                    <div class="feature-card hover-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="w-14 h-14 rounded-xl bg-warning/20 flex items-center justify-center mb-6">
+                            <i class="fas fa-mobile-alt text-warning text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-4">Responsive</h3>
+                        <p class="text-gray-400">
+                            Hoạt động tốt trên mọi thiết bị: máy tính, tablet, điện thoại.
+                            Giao diện tối ưu cho trải nghiệm người dùng.
+                        </p>
+                    </div>
+                    
+                    <!-- Feature 5 -->
+                    <div class="feature-card hover-card" data-aos="fade-up" data-aos-delay="400">
+                        <div class="w-14 h-14 rounded-xl bg-accent/20 flex items-center justify-center mb-6">
+                            <i class="fas fa-infinity text-accent text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-4">Miễn Phí</h3>
+                        <p class="text-gray-400">
+                            Quiz Master hoàn toàn miễn phí, không giới hạn số lần sử dụng,
+                            k̶h̶ô̶n̶g̶ ̶q̶u̶ả̶n̶g̶ ̶c̶á̶o̶, không thu thập dữ liệu cá nhân.
+                        </p>
+                    </div>
+                    
+                    <!-- Feature 6 -->
+                    <div class="feature-card hover-card" data-aos="fade-up" data-aos-delay="500">
+                        <div class="w-14 h-14 rounded-xl bg-success/20 flex items-center justify-center mb-6">
+                            <i class="fas fa-sync text-success text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-4">Cập Nhật Liên Tục</h3>
+                        <p class="text-gray-400">
+                            Thường xuyên cải tiến tính năng, fix lỗi, và bổ sung công cụ
+                            mới dựa trên phản hồi từ cộng đồng người dùng.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Terms of Service -->
+    <section id="terms" class="py-20 bg-card/50">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold text-white mb-4">
+                        <i class="fas fa-file-contract text-warning mr-3"></i>
+                        Điều Khoản Sử Dụng
+                    </h2>
+                    <p class="text-xl text-gray-400">Các quy định khi sử dụng Quiz Master</p>
+                </div>
+                
+                <div class="feature-card hover-card" data-aos="fade-up">
+                    <div class="space-y-8">
+                        <!-- Section 1 -->
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-4">1. Chấp nhận Điều khoản</h3>
+                            <p class="text-gray-400 mb-4">
+                                Bằng việc truy cập và sử dụng Quiz Master, bạn đồng ý tuân thủ 
+                                các điều khoản và điều kiện được nêu trong tài liệu này.
+                            </p>
+                        </div>
+                        
+                        <!-- Section 2 -->
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-4">2. Quyền sử dụng</h3>
+                            <ul class="space-y-3 text-gray-400">
+                                <li class="flex items-start gap-3">
+                                    <i class="fas fa-check-circle text-success mt-1"></i>
+                                    <span>Bạn được phép sử dụng Quiz Master cho mục đích cá nhân và giáo dục.</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fas fa-check-circle text-success mt-1"></i>
+                                    <span>Được phép chia sẻ bài tập đã tạo với học sinh, đồng nghiệp.</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fas fa-times-circle text-error mt-1"></i>
+                                    <span>Không được sử dụng cho mục đích thương mại mà không có sự cho phép.</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fas fa-times-circle text-error mt-1"></i>
+                                    <span>Không được reverse engineer, sao chép, hoặc phân phối lại mã nguồn.</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Section 3 -->
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-4">3. Quyền sở hữu trí tuệ</h3>
+                            <p class="text-gray-400 mb-4">
+                                Quiz Master và tất cả nội dung liên quan (logo, giao diện, mã nguồn) 
+                                là tài sản trí tuệ của tác giả. Bạn giữ quyền sở hữu đối với nội dung 
+                                bài tập mà bạn tạo ra.
+                            </p>
+                        </div>
+                        
+                        <!-- Section 4 -->
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-4">4. Miễn trừ trách nhiệm</h3>
+                            <p class="text-gray-400 mb-4">
+                                Quiz Master được cung cấp "như hiện có" (as-is). Chúng tôi không đảm bảo:
+                            </p>
+                            <ul class="space-y-2 text-gray-400 ml-4">
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-circle text-xs mt-2"></i>
+                                    <span>Dịch vụ không bị gián đoạn hoặc không có lỗi</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-circle text-xs mt-2"></i>
+                                    <span>Tính chính xác tuyệt đối của kết quả chuyển đổi</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-circle text-xs mt-2"></i>
+                                    <span>Tương thích với tất cả các trình duyệt và thiết bị</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Section 5 -->
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-4">5. Thay đổi điều khoản</h3>
+                            <p class="text-gray-400">
+                                Chúng tôi có quyền cập nhật các điều khoản này bất kỳ lúc nào. 
+                                Phiên bản mới nhất sẽ luôn được hiển thị trên trang này. 
+                                Việc tiếp tục sử dụng dịch vụ sau khi có thay đổi có nghĩa là 
+                                bạn chấp nhận các điều khoản mới.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 p-4 bg-warning/10 border border-warning/20 rounded-lg">
+                        <div class="flex items-start gap-3">
+                            <i class="fas fa-exclamation-triangle text-warning text-xl mt-1"></i>
+                            <div>
+                                <p class="text-warning font-bold mb-2">Lưu ý quan trọng:</p>
+                                <p class="text-gray-400 text-sm">
+                                    Bằng việc sử dụng Quiz Master, bạn xác nhận đã đọc, hiểu và đồng ý 
+                                    với tất cả các điều khoản trên. Nếu bạn không đồng ý, vui lòng 
+                                    không sử dụng dịch vụ.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Privacy Policy -->
+    <section id="privacy" class="py-20">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold text-white mb-4">
+                        <i class="fas fa-shield-alt text-accent mr-3"></i>
+                        Chính Sách Bảo Mật
+                    </h2>
+                    <p class="text-xl text-gray-400">Cam kết bảo vệ thông tin người dùng</p>
+                </div>
+                
+                <div class="feature-card hover-card" data-aos="fade-up">
+                    <div class="space-y-8">
+                        <!-- Section 1 -->
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-4">1. Thu thập thông tin</h3>
+                            <p class="text-gray-400 mb-4">
+                                Quiz Master <strong>KHÔNG</strong> thu thập bất kỳ thông tin cá nhân nào:
+                            </p>
+                            <ul class="space-y-3 text-gray-400">
+                                <li class="flex items-start gap-3">
+                                    <i class="fas fa-times text-error mt-1"></i>
+                                    <span>Không yêu cầu đăng ký tài khoản</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fas fa-times text-error mt-1"></i>
+                                    <span>Không thu thập email, tên, số điện thoại</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fas fa-times text-error mt-1"></i>
+                                    <span>Không sử dụng cookies để theo dõi</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fas fa-times text-error mt-1"></i>
+                                    <span>Không chia sẻ dữ liệu với bên thứ ba</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Section 2 -->
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-4">2. Xử lý dữ liệu</h3>
+                            <p class="text-gray-400">
+                                Tất cả quá trình xử lý bài tập đều được thực hiện <strong>cục bộ trên trình duyệt</strong> của bạn:
+                            </p>
+                            <ul class="space-y-3 text-gray-400 mt-4">
+                                <li class="flex items-start gap-3">
+                                    <i class="fas fa-check text-success mt-1"></i>
+                                    <span>Dữ liệu bài tập không được gửi lên server</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fas fa-check text-success mt-1"></i>
+                                    <span>PDF được tạo và tải về trực tiếp từ máy tính của bạn</span>
+                                </li>                                
+                            </ul>
+                        </div>
+                        
+                        <!-- Section 3 -->
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-4">3. Liên kết bên ngoài</h3>
+                            <p class="text-gray-400">
+                                Quiz Master có thể chứa liên kết đến các website của bên thứ ba. 
+                                Chúng tôi không chịu trách nhiệm về nội dung và chính sách bảo mật 
+                                của những website đó.
+                            </p>
+                        </div>
+                        
+                        <!-- Section 4 -->
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-4">4. Bảo mật kỹ thuật</h3>
+                            <p class="text-gray-400">
+                                Chúng tôi sử dụng các biện pháp kỹ thuật để đảm bảo an toàn:
+                            </p>
+                            <ul class="space-y-3 text-gray-400 mt-4">
+                                <li class="flex items-start gap-3">
+                                    <i class="fas fa-lock text-success mt-1"></i>
+                                    <span>HTTPS để mã hóa kết nối</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fas fa-code text-success mt-1"></i>
+                                    <span>Mã nguồn mở, minh bạch</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fas fa-shield-alt text-success mt-1"></i>
+                                    <span>Không chứa mã độc, virus, hoặc phần mềm gián điệp</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Section 5 -->
+                        <div>
+                            <h3 class="text-2xl font-bold text-white mb-4">5. Liên hệ về bảo mật</h3>
+                            <p class="text-gray-400">
+                                Nếu bạn phát hiện bất kỳ vấn đề bảo mật nào hoặc có câu hỏi 
+                                về chính sách này, vui lòng liên hệ:
+                            </p>
+                            <div class="mt-4 p-4 bg-accent/10 rounded-lg">
+                                <p class="text-gray-400">
+                                    <i class="fas fa-envelope text-accent mr-2"></i>
+                                    Email: toancreator.contact@gmail.com
+                                </p>
+                                <p class="text-gray-400 mt-2">
+                                    <i class="fab fa-github text-accent mr-2"></i>
+                                    GitHub: github.com/toancreator/quiz-master/issues
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-card/50">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold text-white mb-4">
+                        <i class="fas fa-envelope text-success mr-3"></i>
+                        Liên Hệ & Hỗ Trợ
+                    </h2>
+                    <p class="text-xl text-gray-400">Kết nối với chúng tôi</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Contact Info -->
+                    <div class="feature-card hover-card" data-aos="fade-right">
+                        <h3 class="text-2xl font-bold text-white mb-6">Thông tin liên hệ</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 rounded-lg bg-accent/20 flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-envelope text-accent"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-white">Email hỗ trợ</h4>
+                                    <p class="text-gray-400">toancreator.contact@gmail.com</p>
+                                    <p class="text-sm text-gray-500 mt-1">Phản hồi trong 24-48 giờ</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 rounded-lg bg-success/20 flex items-center justify-center flex-shrink-0">
+                                    <i class="fab fa-github text-success"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-white">GitHub</h4>
+                                    <p class="text-gray-400">github.com/toancreator</p>
+                                    <p class="text-sm text-gray-500 mt-1">Báo lỗi & Đóng góp ý tưởng</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 rounded-lg bg-purple/20 flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-globe text-purple"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-white">Website chính</h4>
+                                    <p class="text-gray-400">https://toancreator.github.io/quiz-master/</p>
+                                    <p class="text-sm text-gray-500 mt-1">Trang chủ & Công cụ chính</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 rounded-lg bg-warning/20 flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-comments text-warning"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-white">Cộng đồng</h4>
+                                    <p class="text-gray-400">Facebook Group</p>
+                                    <p class="text-sm text-gray-500 mt-1">Thảo luận & Hỗ trợ lẫn nhau</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8 p-4 bg-success/10 rounded-lg">
+                            <p class="text-gray-400 text-sm">
+                                <i class="fas fa-lightbulb text-success mr-2"></i>
+                                <strong>Mẹo:</strong> Để được hỗ trợ nhanh nhất, vui lòng mô tả chi tiết 
+                                vấn đề bạn gặp phải kèm theo hình ảnh minh họa (nếu có).
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- FAQ -->
+                    <div class="feature-card hover-card" data-aos="fade-left">
+                        <h3 class="text-2xl font-bold text-white mb-6">Câu hỏi thường gặp (FAQ)</h3>
+                        
+                        <div class="space-y-6">
+                            <!-- FAQ 1 -->
+                            <div>
+                                <h4 class="font-bold text-white mb-2">Quiz Master có miễn phí không?</h4>
+                                <p class="text-gray-400 text-sm">
+                                    Có, Quiz Master hoàn toàn miễn phí và sẽ luôn miễn phí cho 
+                                    mục đích giáo dục.
+                                </p>
+                            </div>
+                            
+                            <!-- FAQ 2 -->
+                            <div>
+                                <h4 class="font-bold text-white mb-2">Tại sao PDF bị lỗi font tiếng Việt?</h4>
+                                <p class="text-gray-400 text-sm">
+                                    Chúng tôi đã fix hoàn toàn lỗi font. Nếu bạn gặp vấn đề, 
+                                    vui lòng làm mới trang và thử lại. Vấn đề thường do cache trình duyệt.
+                                </p>
+                            </div>
+                            
+                            <!-- FAQ 3 -->
+                            <div>
+                                <h4 class="font-bold text-white mb-2">Có giới hạn số lần sử dụng không?</h4>
+                                <p class="text-gray-400 text-sm">
+                                    Không có giới hạn. Bạn có thể sử dụng Quiz Master bao nhiêu lần tùy thích, 
+                                    tạo bao nhiêu PDF tùy ý.
+                                </p>
+                            </div>
+                            
+                            <!-- FAQ 4 -->
+                            <div>
+                                <h4 class="font-bold text-white mb-2">Làm thế nào để đóng góp ý tưởng?</h4>
+                                <p class="text-gray-400 text-sm">
+                                    Bạn có thể tạo issue trên GitHub hoặc gửi email cho chúng tôi. 
+                                    Mọi ý tưởng đều được đánh giá và có thể được tích hợp vào phiên bản sau.
+                                </p>
+                            </div>
+                            
+                            <!-- FAQ 5 -->
+                            <div>
+                                <h4 class="font-bold text-white mb-2">Có ứng dụng di động không?</h4>
+                                <p class="text-gray-400 text-sm">
+                                    Hiện tại Quiz Master là web app responsive, hoạt động tốt trên 
+                                    mobile browser. Ứng dụng native đang trong kế hoạch phát triển.
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8">
+                            <a href="mailto:toancreator.contact@gmail.com" 
+                               class="w-full bg-success text-white font-bold py-3 px-6 rounded-lg hover:bg-success/90 transition flex items-center justify-center gap-2">
+                                <i class="fas fa-question-circle"></i>
+                                Gửi câu hỏi của bạn
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-border py-12">
+        <div class="container mx-auto px-4">
+            <div class="max-w-6xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                    <!-- Logo & Description -->
+                    <div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-accent to-purple flex items-center justify-center">
+                                <i class="fas fa-graduation-cap text-white"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-white">QUIZ MASTER</h3>
+                                <p class="text-xs text-gray-400">Education Tool</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-400 text-sm">
+                            Công cụ chuyển đổi bài tập sang PDF chuyên nghiệp, 
+                            hỗ trợ cộng đồng giáo dục Việt Nam.
+                        </p>
+                    </div>
+                    
+                    <!-- Quick Links -->
+                    <div>
+                        <h4 class="text-lg font-bold text-white mb-4">Liên kết nhanh</h4>
+                        <ul class="space-y-2">
+                            <li><a href="https://toancreator.github.io/quiz-master/" class="text-gray-400 hover:text-white transition">Trang chính</a></li>
+                            <li><a href="#about" class="text-gray-400 hover:text-white transition">Về tác giả</a></li>
+                            <li><a href="#features" class="text-gray-400 hover:text-white transition">Tính năng</a></li>
+                            <li><a href="#terms" class="text-gray-400 hover:text-white transition">Điều khoản</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Resources -->
+                    <div>
+                        <h4 class="text-lg font-bold text-white mb-4">Tài nguyên</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#privacy" class="text-gray-400 hover:text-white transition">Chính sách bảo mật</a></li>
+                            <li><a href="#contact" class="text-gray-400 hover:text-white transition">Liên hệ</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition">Hướng dẫn sử dụng</a></li>
+                            <li><a href="#" class="text-gray-400 hover:text-white transition">Changelog</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Newsletter -->
+                    <div>
+                        <h4 class="text-lg font-bold text-white mb-4">Cập nhật</h4>
+                        <p class="text-gray-400 text-sm mb-4">
+                            Nhận thông báo về tính năng mới và cập nhật.
+                        </p>
+                        <div class="flex gap-2">
+                            <input type="email" placeholder="Email của bạn" 
+                                   class="flex-1 bg-card border border-border rounded-lg px-4 py-2 text-white text-sm outline-none">
+                            <button class="bg-accent text-white px-4 rounded-lg hover:bg-accent/90 transition">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Bottom Bar -->
+                <div class="border-t border-border pt-8">
+                    <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                        <p class="text-gray-500 text-sm">
+                            © 2025 Toàn Creator - Quiz Master
+                        </p>
+                        
+                        <div class="flex items-center gap-4">
+                            <span class="text-gray-500 text-sm">Theo dõi:</span>
+                            <div class="flex gap-3">
+                                <a href="#" class="text-gray-400 hover:text-white">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                <a href="#" class="text-gray-400 hover:text-white">
+                                    <i class="fab fa-facebook"></i>
+                                </a>
+                                <a href="#" class="text-gray-400 hover:text-white">
+                                    <i class="fab fa-youtube"></i>
+                                </a>
+                                <a href="#" class="text-gray-400 hover:text-white">
+                                    <i class="fab fa-tiktok"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+        
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+        
+        // Back to Top Button
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+        
+        // Scroll to Section
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({
+                    behavior: 'smooth'
+                });
+                
+                // Update active TOC item
+                document.querySelectorAll('.toc-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                // Find and activate the clicked TOC item
+                const clickedItem = Array.from(document.querySelectorAll('.toc-item')).find(item => 
+                    item.getAttribute('onclick')?.includes(sectionId)
+                );
+                
+                if (clickedItem) {
+                    clickedItem.classList.add('active');
+                }
+            }
+        }
+        
+        // Show/Hide Back to Top Button
+        window.addEventListener('scroll', function() {
+            const backToTop = document.querySelector('.back-to-top');
+            if (window.scrollY > 300) {
+                backToTop.classList.add('active');
+            } else {
+                backToTop.classList.remove('active');
+            }
+            
+            // Update active TOC item based on scroll position
+            const sections = document.querySelectorAll('section[id]');
+            const scrollPos = window.scrollY + 100;
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                const sectionId = section.getAttribute('id');
+                
+                if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                    document.querySelectorAll('.toc-item').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    
+                    const correspondingTocItem = Array.from(document.querySelectorAll('.toc-item')).find(item => 
+                        item.getAttribute('onclick')?.includes(sectionId)
+                    );
+                    
+                    if (correspondingTocItem) {
+                        correspondingTocItem.classList.add('active');
+                    }
+                }
+            });
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const menuButton = document.querySelector('[onclick="toggleMobileMenu()"]');
+            
+            if (!mobileMenu.contains(event.target) && !menuButton.contains(event.target)) {
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                }
+            }
+        });
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId !== '#') {
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                        
+                        // Close mobile menu if open
+                        const mobileMenu = document.getElementById('mobileMenu');
+                        if (!mobileMenu.classList.contains('hidden')) {
+                            mobileMenu.classList.add('hidden');
+                        }
+                    }
+                }
+            });
+        });
+        
+        // Newsletter form submission
+        document.querySelector('input[type="email"] + button').addEventListener('click', function() {
+            const emailInput = document.querySelector('input[type="email"]');
+            const email = emailInput.value;
+            
+            if (email && email.includes('@')) {
+                alert('Cảm ơn bạn đã đăng ký nhận thông báo!');
+                emailInput.value = '';
+            } else {
+                alert('Vui lòng nhập email hợp lệ.');
+            }
+        });
+        
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Trang Thông Tin Quiz Master đã sẵn sàng!');
+        });
+    </script>
+</body>
+</html>
