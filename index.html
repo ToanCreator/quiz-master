@@ -15,44 +15,45 @@
     </script>    
 </head>
 <body class="min-h-screen pb-20 md:pb-0 md:pl-64">
-<header class="fixed top-0 left-0 right-0 h-16 bg-card/95 backdrop-blur-lg border-b border-border z-50 flex items-center justify-between px-4 md:px-6">
+<header class="fixed top-0 left-0 right-0 h-16 bg-card/95 backdrop-blur-lg border-b border-border z-50 flex items-center justify-between px-4 md:px-6 no-select">
     <div class="flex items-center gap-3">
-        <img src="https://i.ibb.co/BK658SV5/Picsart-25-06-23-20-06-13-912.png" 
-             alt="Avatar" 
-             class="w-10 h-10 rounded-full border-2 border-accent object-cover hover:scale-105 transition-transform">
+        <div class="avatar-protect">
+            <img src="https://i.ibb.co/BK658SV5/Picsart-25-06-23-20-06-13-912.png" 
+                 alt="Avatar" 
+                 class="w-10 h-10 rounded-full border-2 border-accent object-cover hover:scale-105 transition-transform"
+                 draggable="false"
+                 oncontextmenu="return false;"
+                 onmousedown="return false;">
+        </div>
         <span class="hidden md:inline text-white font-bold italic">Toàn Creator</span>
     </div>
     <div class="md:hidden">
         <span class="text-white font-black italic">QUIZ MASTER</span>
     </div>    
-    <div class="relative">        
-        <input type="checkbox" id="menu-toggle" class="hidden peer">       
+    <div class="relative">       
+        <input type="checkbox" id="menu-toggle" class="hidden peer">
         <label for="menu-toggle" class="w-10 h-10 flex flex-col justify-center items-center gap-1.5 hover:bg-border rounded-lg transition cursor-pointer">
             <span class="w-6 h-0.5 bg-gray-400 rounded-full transition-all peer-checked:rotate-45 peer-checked:translate-y-2"></span>
             <span class="w-6 h-0.5 bg-gray-400 rounded-full transition-all peer-checked:opacity-0"></span>
             <span class="w-6 h-0.5 bg-gray-400 rounded-full transition-all peer-checked:-rotate-45 peer-checked:-translate-y-2"></span>
         </label>        
-        <div class="absolute right-0 top-12 w-48 bg-card border border-border rounded-xl shadow-2xl opacity-0 invisible translate-y-2 scale-95 origin-top-right transition-all duration-200 peer-checked:opacity-100 peer-checked:visible peer-checked:translate-y-0 peer-checked:scale-100 flex-col overflow-hidden z-50">
+        <div class="absolute right-0 top-12 w-48 bg-card border border-border rounded-xl shadow-2xl opacity-0 invisible translate-y-2 scale-95 origin-top-right transition-all duration-200 peer-checked:opacity-100 peer-checked:visible peer-checked:translate-y-0 peer-checked:scale-100 flex-col overflow-hidden z-50 dropdown-menu">
             <a href="https://toancreator.github.io/quiz-master/" 
-               target="_blank"
                class="px-4 py-3 hover:bg-border flex items-center gap-3 text-sm font-medium text-gray-300 hover:text-white transition hover:pl-5">
                 <i class="fa-solid fa-house text-gray-500 w-5 text-center"></i>
                 <span>Trang chủ</span>
             </a>            
             <a href="https://toancreator.github.io/quiz-master/convert.html" 
-               target="_blank"
                class="px-4 py-3 hover:bg-border flex items-center gap-3 text-sm font-medium text-gray-300 hover:text-white transition hover:pl-5">
                 <i class="fa-solid fa-file-pdf text-red-500 w-5 text-center"></i>
                 <span>Câu hỏi sang PDF</span>
             </a>            
             <a href="https://toancreator.github.io/quiz-master/info.html" 
-               target="_blank"
                class="px-4 py-3 hover:bg-border flex items-center gap-3 text-sm font-medium text-gray-300 hover:text-white transition hover:pl-5">
                 <i class="fa-solid fa-circle-info text-blue-500 w-5 text-center"></i>
                 <span>Thông tin</span>
-            </a>                       
-            <div class="border-t border-border my-1"></div>
-            
+            </a>
+            <div class="border-t border-border my-1"></div>           
             <a href="#" onclick="app.navigate('dashboard')" class="px-4 py-3 hover:bg-border flex items-center gap-3 text-sm font-medium text-gray-300 hover:text-white transition hover:pl-5">
                 <i class="fa-solid fa-chart-pie text-accent w-5 text-center"></i>
                 <span>Thống kê</span>
