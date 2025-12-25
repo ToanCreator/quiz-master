@@ -797,3 +797,52 @@ img {
     -ms-user-select: text;
     user-select: text;
 }
+/* Code block style cho Prompt */
+.code-block {
+    background: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 12px;
+    font-family: monospace;
+    font-size: 13px;
+    color: #e6edf3;
+    white-space: pre-wrap;
+    word-break: break-all;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+/* Custom scrollbar cho modal */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #30363d;
+    border-radius: 3px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #58a6ff;
+}
+
+/* Hiệu ứng nút Help */
+.btn-help {
+    width: 36px; 
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(88, 166, 255, 0.1);
+    color: #58a6ff;
+    border: 1px solid rgba(88, 166, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+.btn-help:hover {
+    background: #58a6ff;
+    color: white;
+    box-shadow: 0 0 10px rgba(88, 166, 255, 0.4);
+}
