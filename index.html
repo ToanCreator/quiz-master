@@ -6,7 +6,7 @@
     <title>Quiz Master - Toàn Creator</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -18,49 +18,95 @@
 <header class="fixed top-0 left-0 right-0 h-16 bg-card/95 backdrop-blur-lg border-b border-border z-50 flex items-center justify-between px-4 md:px-6 no-select">
     <div class="flex items-center gap-3">
         <div class="avatar-protect">
-            <img src="https://i.ibb.co/BK658SV5/Picsart-25-06-23-20-06-13-912.png" alt="Logo" class="w-8 h-8 rounded-full border border-border pointer-events-none">
-            <div class="download-message">Không cho tải đâu!</div>
+            <img src="https://i.ibb.co/BK658SV5/Picsart-25-06-23-20-06-13-912.png" 
+                 alt="Avatar" 
+                 class="w-10 h-10 rounded-full border-2 border-accent object-cover hover:scale-105 transition-transform"
+                 draggable="false"
+                 oncontextmenu="return false;"
+                 onmousedown="return false;">
         </div>
-        <h1 class="font-bold text-lg tracking-tight"><span class="text-accent">Quiz</span>Master</h1>
+        <span class="hidden md:inline text-white font-bold italic">Toàn Creator</span>
     </div>
-    <div id="userInfo" class="flex items-center gap-3"></div>
+    <div class="md:hidden">
+        <span class="text-white font-black italic">QUIZ MASTER</span>
+    </div>    
+    <div class="relative">       
+        <input type="checkbox" id="menu-toggle" class="hidden peer">
+        <label for="menu-toggle" class="w-10 h-10 flex flex-col justify-center items-center gap-1.5 hover:bg-border rounded-lg transition cursor-pointer">
+            <span class="w-6 h-0.5 bg-gray-400 rounded-full transition-all peer-checked:rotate-45 peer-checked:translate-y-2"></span>
+            <span class="w-6 h-0.5 bg-gray-400 rounded-full transition-all peer-checked:opacity-0"></span>
+            <span class="w-6 h-0.5 bg-gray-400 rounded-full transition-all peer-checked:-rotate-45 peer-checked:-translate-y-2"></span>
+        </label>        
+        <div class="absolute right-0 top-12 w-48 bg-card border border-border rounded-xl shadow-2xl opacity-0 invisible translate-y-2 scale-95 origin-top-right transition-all duration-200 peer-checked:opacity-100 peer-checked:visible peer-checked:translate-y-0 peer-checked:scale-100 flex-col overflow-hidden z-50 dropdown-menu">
+            <a href="https://toancreator.github.io/quiz-master/" 
+               class="px-4 py-3 hover:bg-border flex items-center gap-3 text-sm font-medium text-gray-300 hover:text-white transition hover:pl-5">
+                <i class="fa-solid fa-house text-gray-500 w-5 text-center"></i>
+                <span>Trang chủ</span>
+            </a>            
+            <a href="convert.html" 
+               class="px-4 py-3 hover:bg-border flex items-center gap-3 text-sm font-medium text-gray-300 hover:text-white transition hover:pl-5">
+                <i class="fa-solid fa-file-pdf text-red-500 w-5 text-center"></i>
+                <span>Câu hỏi sang PDF</span>
+            </a>            
+            <a href="info.html" 
+               class="px-4 py-3 hover:bg-border flex items-center gap-3 text-sm font-medium text-gray-300 hover:text-white transition hover:pl-5">
+                <i class="fa-solid fa-circle-info text-blue-500 w-5 text-center"></i>
+                <span>Thông tin</span>
+            </a>
+            <div class="border-t border-border my-1"></div>           
+            <a href="#" onclick="app.navigate('dashboard')" class="px-4 py-3 hover:bg-border flex items-center gap-3 text-sm font-medium text-gray-300 hover:text-white transition hover:pl-5">
+                <i class="fa-solid fa-chart-pie text-accent w-5 text-center"></i>
+                <span>Thống kê</span>
+            </a>            
+            <a href="#" onclick="app.navigate('create')" class="px-4 py-3 hover:bg-border flex items-center gap-3 text-sm font-medium text-gray-300 hover:text-white transition hover:pl-5">
+                <i class="fa-solid fa-wand-magic-sparkles text-purple-500 w-5 text-center"></i>
+                <span>Tạo với AI</span>
+            </a>            
+            <a href="#" onclick="app.navigate('settings')" class="px-4 py-3 hover:bg-border flex items-center gap-3 text-sm font-medium text-gray-300 hover:text-white transition hover:pl-5">
+                <i class="fa-solid fa-shield-halved text-green-500 w-5 text-center"></i>
+                <span>Cài đặt</span>
+            </a>
+        </div>
+        <label for="menu-toggle" class="fixed inset-0 bg-black/20 z-40 hidden peer-checked:block cursor-default"></label>
+    </div>
 </header>
-<nav class="fixed bottom-0 left-0 right-0 h-16 bg-card/95 backdrop-blur-lg border-t border-border z-50 flex md:flex-col md:left-0 md:top-16 md:bottom-0 md:w-64 md:border-r md:border-t-0 md:items-start md:px-4 md:py-6 justify-around items-center no-select">
-    <button id="mobile-nav-dashboard" onclick="app.navigate('dashboard')" class="flex flex-col items-center text-gray-400 md:flex-row md:gap-3 md:w-full md:p-3 md:rounded-xl md:hover:bg-dark transition-all">
-        <i class="fa-solid fa-house mb-1 md:mb-0"></i>
-        <span class="text-[9px] font-bold md:text-sm">Home</span>
-    </button>
-    <button id="mobile-nav-create" onclick="app.navigate('create')" class="flex flex-col items-center text-gray-400 md:flex-row md:gap-3 md:w-full md:p-3 md:rounded-xl md:hover:bg-dark transition-all">
-        <i class="fa-solid fa-circle-plus text-xl mb-1 md:mb-0 md:text-base"></i>
-        <span class="text-[9px] font-bold md:text-sm">Create</span>
-    </button>
-    <button id="mobile-nav-settings" onclick="app.navigate('settings')" class="flex flex-col items-center text-gray-400 md:flex-row md:gap-3 md:w-full md:p-3 md:rounded-xl md:hover:bg-dark transition-all">
-        <i class="fa-solid fa-gear mb-1 md:mb-0"></i>
-        <span class="text-[9px] font-bold md:text-sm">Settings</span>
-    </button>
-</nav>
-<main id="mainApp" class="p-4 md:p-8 max-w-5xl mx-auto mt-16"></main>
-<div id="aiModal" class="fixed inset-0 bg-black/80 hidden z-[100] flex items-center justify-center p-4 backdrop-blur-sm">
-    <div class="bg-card w-full max-w-2xl rounded-2xl border border-border shadow-2xl flex flex-col max-h-[90vh]">
-        <div class="p-4 border-b border-border flex justify-between items-center bg-dark rounded-t-2xl">
-            <h3 id="aiModalTitle" class="font-bold text-accent text-lg"></h3>
-            <button onclick="document.getElementById('aiModal').classList.add('hidden')" class="w-8 h-8 rounded-full hover:bg-border flex items-center justify-center transition">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-        </div>
-        <div class="p-4 overflow-y-auto flex-1 custom-scrollbar">
-            <p id="aiModalDesc" class="text-sm text-gray-400 mb-3"></p>
-            <div id="aiModalContent"></div>
-        </div>
-        <div id="aiModalFooter" class="p-4 border-t border-border flex justify-end gap-3 bg-dark rounded-b-2xl">
-            </div>
+<div id="dropdownOverlay" class="fixed inset-0 bg-black/20 z-40 hidden"></div>
+    <aside class="hidden md:flex fixed left-0 top-0 h-full w-64 bg-card border-r border-border flex-col p-6 mt-16" style="height: calc(100vh - 64px);">
+        <div class="flex items-center gap-3 mb-10"><i class="fa-solid fa-bolt-lightning text-2xl text-accent"></i><span class="text-xl font-black text-white italic">QUIZ MASTER</span></div>
+        <nav class="space-y-2 flex-1 text-sm font-bold">
+            <button id="nav-dashboard" onclick="app.navigate('dashboard')" class="w-full text-left p-4 rounded-2xl hover:bg-border flex items-center gap-3"><i class="fa-solid fa-chart-pie"></i> Thống kê</button>
+            <button id="nav-create" onclick="app.navigate('create')" class="w-full text-left p-4 rounded-2xl hover:bg-border flex items-center gap-3"><i class="fa-solid fa-wand-magic-sparkles"></i> Tạo với AI</button>
+            <button id="nav-settings" onclick="app.navigate('settings')" class="w-full text-left p-4 rounded-2xl hover:bg-border flex items-center gap-3"><i class="fa-solid fa-shield-halved"></i> Bảo mật & API</button>
+        </nav>
+        <div class="text-[10px] text-gray-500 border-t border-border pt-4">© 2025 <b class="text-accent">Toàn Creator</b></div>
+    </aside>
+
+    <nav class="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-card/90 backdrop-blur-lg border-t border-border flex items-center justify-around z-50">
+        <button id="mobile-nav-dashboard" onclick="app.navigate('dashboard')" class="flex flex-col items-center text-gray-400">
+            <i class="fa-solid fa-house mb-1"></i>
+            <span class="text-[9px] font-bold">Home</span>
+        </button>
+        <button id="mobile-nav-create" onclick="app.navigate('create')" class="flex flex-col items-center text-gray-400">
+            <i class="fa-solid fa-circle-plus text-xl mb-1"></i>
+            <span class="text-[9px] font-bold">Create</span>
+        </button>
+        <button id="mobile-nav-settings" onclick="app.navigate('settings')" class="flex flex-col items-center text-gray-400">
+            <i class="fa-solid fa-gear mb-1"></i>
+            <span class="text-[9px] font-bold">Settings</span>
+        </button>
+    </nav>
+    <main id="mainApp" class="p-4 md:p-8 max-w-5xl mx-auto mt-16"></main>
+
+    <div id="timerOverlay" class="fixed top-0 left-0 w-full h-1 z-[100] hidden bg-border">
+        <div id="timerBar" class="h-full bg-accent w-full shadow-[0_0_10px_#58a6ff]"></div>
+        <div id="timerText" class="absolute top-4 right-4 bg-dark/80 text-accent font-black px-3 py-1 rounded-full border border-accent shadow-lg">00:00</div>
     </div>
-</div>
-<div id="timerOverlay" class="fixed top-0 left-0 w-full h-1 z-[100] hidden bg-border">
-    <div id="timerBar" class="h-full bg-accent w-full shadow-[0_0_10px_#58a6ff]"></div>
-    <div id="timerText" class="absolute top-4 right-4 bg-dark/80 text-accent font-black px-3 py-1 rounded-full border border-accent shadow-lg">00:00</div>
-</div>
-<div id="toast" class="fixed top-20 right-4 z-[100] transition-all duration-300 translate-x-full opacity-0"></div>
-<script src="script.js"></script>
+
+    <div id="toast" class="fixed top-4 left-1/2 -translate-x-1/2 z-[100] px-6 py-2 rounded-full bg-accent text-dark font-black text-xs hidden shadow-2xl"></div>
+<script src="js/script.js"></script>
+<script>        document.addEventListener('DOMContentLoaded', function() {
+            app.init();
+        });
+</script>
 </body>
 </html>
